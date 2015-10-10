@@ -1,0 +1,8 @@
+node_modules
+/.*/
+public/js/*.*
+*.log
+
+server/public/css/*.css*
+server/public/css/*spritesheet*.png*
+server/public/js/*.js*

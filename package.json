@@ -1,0 +1,36 @@
+{
+  "name": "boilerplate-gulp-generic",
+  "version": "1.0.0",
+  "description": "boilerplate gulp project meant to be a good starting point for any type of app.",
+  "scripts": {},
+  "author": "Michael Nigh <contact@mnigh.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/micnigh/boilerplate-gulp-generic"
+  },
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "compression": "^1.6.0",
+    "express": "^4.13.3"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.9.10",
+    "chai": "^3.3.0",
+    "es5-shim": "^4.1.14",
+    "eslint": "^1.6.0",
+    "gulp": "^3.9.0",
+    "gulp-frontend-tasks": "micnigh/gulp-frontend-tasks",
+    "gulp-nodemon": "^2.0.4",
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.13.10",
+    "karma-jasmine": "^0.3.6",
+    "karma-jasmine-html-reporter": "^0.1.8",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "karma-source-map-support": "^1.1.0",
+    "karma-spec-reporter": "0.0.20",
+    "phantomjs": "^1.9.18",
+    "underscore": "^1.8.3",
+    "yargs": "^3.27.0"
+  }
+}
