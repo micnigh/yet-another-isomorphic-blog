@@ -37,5 +37,8 @@
     },
     "globals": {
 
-    }
+    },
+    "plugins": [
+      "react",
+    ]
 }

@@ -22,6 +22,8 @@ var libs = [
   "underscore",
   "es5-shim/es5-shim",
   "es5-shim/es5-sham",
+  "react",
+  "react-dom",
 ];
 
 var testLibs = [
@@ -154,7 +156,7 @@ gulp.task("serve", [], function () {
       "server/public/css/*.css*",
     ],
     script: "server/index.js",
-    ext: "js html",
+    ext: "js",
   });
 });
 
