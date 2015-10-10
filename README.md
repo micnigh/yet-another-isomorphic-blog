@@ -1,16 +1,12 @@
-# boilerplate-gulp-generic
+# yet-another-isomorphic-blog
 
-Boilerplate gulp project meant to be a good starting point for any type of app.
+Demo of isomorphic react blog.
 
 ## Quick start
 
 ```bash
-git clone https://github.com/micnigh/boilerplate-gulp-generic new-awesome-project
-cd new-awesome-project
-rm -rf .git
-git init .
-git add -A
-git commit -am "init commit"
+git clone https://github.com/micnigh/yet-another-isomorphic-blog
+cd yet-another-isomorphic-blog
 npm install
 npm install -g gulp # if not already installed globally
 
