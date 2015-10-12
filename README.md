@@ -15,9 +15,16 @@ npm install -g gulp # if not already installed globally
 ## tasks
 
 ```bash
-gulp build # build all assets
+gulp # alias gulp watch
 gulp watch # run dev server where assets are auto rebuilt and the browser is reloaded once build is complete
+gulp build # build all assets
 gulp test # run tests
 NODE_ENV=production gulp build # build all assets in production mode
 
 ```
+
+## TODO
+
+- Style it
+- Generate sitemap
+- Task to convert blog to static isomorphic website

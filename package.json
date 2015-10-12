@@ -1,28 +1,42 @@
 {
-  "name": "boilerplate-gulp-generic",
+  "name": "yet-another-isomorphic-blog",
   "version": "1.0.0",
-  "description": "boilerplate gulp project meant to be a good starting point for any type of app.",
+  "description": "Demo of isomorphic react blog.",
   "scripts": {},
   "author": "Michael Nigh <contact@mnigh.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/micnigh/boilerplate-gulp-generic"
+    "url": "https://github.com/micnigh/yet-another-isomorphic-blog"
   },
   "dependencies": {
+    "babel": "^5.8.23",
     "body-parser": "^1.14.1",
+    "chalk": "^1.1.1",
     "compression": "^1.6.0",
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "handlebars": "^4.0.3",
+    "highlight.js": "^8.8.0",
+    "history": "^1.12.5",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
+    "react-router": "^1.0.0-rc3",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
-    "browser-sync": "^2.9.10",
+    "browser-sync": "^2.9.11",
     "chai": "^3.3.0",
     "es5-shim": "^4.1.14",
     "eslint": "^1.6.0",
+    "eslint-plugin-babel": "^2.1.1",
     "eslint-plugin-react": "^3.5.1",
+    "event-stream": "^3.3.1",
     "gulp": "^3.9.0",
+    "gulp-front-matter": "^1.2.3",
     "gulp-frontend-tasks": "micnigh/gulp-frontend-tasks",
+    "gulp-marked": "^1.0.0",
     "gulp-nodemon": "^2.0.4",
+    "gulp-watch": "^4.3.5",
     "jasmine-core": "^2.3.4",
     "karma": "^0.13.10",
     "karma-jasmine": "^0.3.6",
@@ -31,9 +45,7 @@
     "karma-source-map-support": "^1.1.0",
     "karma-spec-reporter": "0.0.20",
     "phantomjs": "^1.9.18",
-    "react": "^0.14.0",
-    "react-dom": "^0.14.0",
-    "underscore": "^1.8.3",
+    "regexp.escape": "^1.0.2",
     "yargs": "^3.27.0"
   }
 }

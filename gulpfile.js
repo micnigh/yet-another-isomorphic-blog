@@ -1,10 +1,11 @@
 var browsersync = require("browser-sync");
-var argv = require("yargs").argv;
 var gulp = require("gulp");
 var nodemon = require("gulp-nodemon");
 var karma = require("karma");
 
 var gft = require("gulp-frontend-tasks")(gulp);
+
+require("babel/register");
 
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
@@ -24,6 +25,12 @@ var libs = [
   "es5-shim/es5-sham",
   "react",
   "react-dom",
+  "react-router",
+  "history/lib/createBrowserHistory"
+];
+
+var dataBundle = [
+  "data.json",
 ];
 
 var testLibs = [
@@ -50,6 +57,26 @@ gft.generateTask("js", {
 });
 
 gft.generateTask("js", {
+  taskName: "data",
+  entries: [
+    "client/js/data/entry.js",
+  ],
+  includes: [
+    "client/js/data",
+    "shared",
+  ],
+  dest: distPath + "/js/",
+  destFileName: "data.js",
+  browserify: {
+    requires: dataBundle,
+  },
+  watch: [
+    "shared/data.json",
+  ],
+  browsersync: bsApp,
+});
+
+gft.generateTask("js", {
   taskName: "app",
   entries: [
     "client/js/src/*.js",
@@ -57,12 +84,14 @@ gft.generateTask("js", {
   dest: distPath + "/js/",
   includes: [
     "client/js/src",
+    "shared",
   ],
   browserify: {
-    externals: libs,
+    externals: libs.concat(dataBundle),
   },
   watch: [
     "client/js/src/*.js",
+    "shared/**/*.js",
   ],
   browsersync: bsApp,
 });
@@ -95,6 +124,7 @@ gft.generateTask("js", {
   includes: [
     "client/js/test/src",
     "client/js/src",
+    "shared",
   ],
   browserify: {
     externals: libs.concat(testLibs),
@@ -107,12 +137,14 @@ gft.generateTask("js", {
 
 gulp.task("build:js", [
   "build:js:lib",
+  "build:js:data",
   "build:js:app",
   "build:js:test",
 ]);
 
 gulp.task("watch:js", [
   "watch:js:lib",
+  "watch:js:data",
   "watch:js:app",
   "watch:js:test",
 ]);
@@ -165,13 +197,19 @@ gulp.task("watch:spritesheet", [
   "watch:spritesheet:app",
 ]);
 
+gulp.task("build:data", [], require("./tasks/build/data"));
+gulp.task("watch:data", ["build:data"], require("./tasks/watch/data"));
+
 gulp.task("build", [
+  "build:data",
   "build:js",
   "build:css",
   "build:spritesheet",
 ]);
 
-gulp.task("serve", [], function () {
+gulp.task("serve", [
+  "build:data",
+], function () {
   nodemon({
     watch: [
       "server",
@@ -180,8 +218,11 @@ gulp.task("serve", [], function () {
       "server/public/js/*.js*",
       "server/public/css/*.css*",
     ],
+    "execMap": {
+      "js": "node"
+    },
     script: "server/index.js",
-    ext: "js",
+    ext: "js md html",
   });
 });
 
@@ -245,6 +286,7 @@ gulp.task("watch", [
   "watch:initBrowserify",
   "serve",
   "watch:test:karma",
+  "watch:data",
 ]);
 
 gulp.task("default", ["watch"]);
