@@ -10,16 +10,22 @@ var Post = require("./component/Post");
 
 /* eslint-disable no-unused-vars */
 export default function (data) {
+
+  var postRoutes = data.posts.byDate.map(post => {
+    var postIndex = data.posts.byDate.findIndex((p) => p.slug === post.slug);
+    var prev = data.posts.byDate[postIndex + 1] || null;
+    var next = data.posts.byDate[postIndex - 1] || null;
+    return (
+      <Route path={`posts/${post.slug}`} key={post.slug} component={(routeProp) => {
+        return <Post post={post} prev={prev} next={next}/>;
+      }}/>
+    );
+  });
+
   return (
     <Route path="/" component={LayoutPage}>
       <IndexRoute component={(routeProp) => <Home posts={data.posts.byDate}/>}/>
-      <Route path="posts/:slug" component={(routeProp) => {
-        var post = data.posts.bySlug[routeProp.params.slug];
-        var postIndex = data.posts.byDate.findIndex((p) => p.slug === post.slug);
-        var prev = data.posts.byDate[postIndex + 1] || null;
-        var next = data.posts.byDate[postIndex - 1] || null;
-        return <Post post={post} prev={prev} next={next}/>;
-      }}/>
+      { postRoutes }
     </Route>
   );
 }

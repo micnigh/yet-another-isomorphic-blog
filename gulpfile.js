@@ -13,11 +13,19 @@ var bsApp = browsersync.create();
 var bsTest = browsersync.create();
 
 var distPath = "server/public";
+var staticPath = ".tmp/static";
 var testPath = ".tmp/test/";
 
 var karmaPort = 3001;
 var bsAppPort = 3002;
 var bsTestPort = 3004;
+
+module.exports = {
+  distPath: distPath,
+  staticPath: staticPath,
+  testPath: testPath,
+  karmaPort: karmaPort,
+};
 
 var libs = [
   "underscore",
@@ -200,6 +208,16 @@ gulp.task("watch:spritesheet", [
 gulp.task("build:data", [], require("./tasks/build/data"));
 gulp.task("watch:data", ["build:data"], require("./tasks/watch/data"));
 
+require("./tasks/build/static").generateTask({
+  taskName: "build:static",
+  dependsOn: [
+    "build",
+  ],
+  staticPath: staticPath,
+  distPath: distPath,
+  hostname: "http://blog.yet-another-isomorphic-blog.com",
+});
+
 gulp.task("build", [
   "build:data",
   "build:js",
@@ -290,9 +308,3 @@ gulp.task("watch", [
 ]);
 
 gulp.task("default", ["watch"]);
-
-module.exports = {
-  distPath: distPath,
-  testPath: testPath,
-  karmaPort: karmaPort,
-};
