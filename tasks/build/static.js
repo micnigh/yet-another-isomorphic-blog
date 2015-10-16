@@ -1,4 +1,5 @@
 var gulp = require("gulp");
+var concat = require("gulp-concat");
 var chalk = require("chalk");
 var handlebars = require("handlebars");
 /* eslint-disable no-unused-vars */
@@ -11,20 +12,32 @@ var shelljs = require("shelljs");
 var path = require("path");
 var Sitemap = require("sitemap");
 
+var isDev = "development" === process.env.NODE_ENV;
+
 var generateTask = function({
   taskName,
   dependsOn,
   staticPath,
   distPath,
+  jsAssets,
   hostname,
 }) {
   gulp.task(taskName, dependsOn.concat([
+    `${taskName}:concat-js-assets`,
     `${taskName}:copy-assets`,
     `${taskName}:html`,
     `${taskName}:sitemap`,
   ]));
 
-  gulp.task(`${taskName}:copy-assets`, dependsOn, function () {
+  gulp.task(`${taskName}:concat-js-assets`, dependsOn, function () {
+    return gulp.src(jsAssets)
+      .pipe(concat("all.js"))
+      .pipe(gulp.dest(`${staticPath}/js/`));
+  });
+
+  gulp.task(`${taskName}:copy-assets`, dependsOn.concat([
+    `${taskName}:concat-js-assets`,
+  ]), function () {
     return gulp.src([
       `${distPath}/**/*.js`,
       `${distPath}/**/*.css`,
@@ -102,6 +115,7 @@ var convertRoutePathToHtml = function ({ routes, routePath, template }, callback
     if (renderProps) {
       try {
         var html = template({
+          isDev,
           content: renderToString(<RoutingContext {...renderProps} />),
         });
         callback(null, {

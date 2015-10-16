@@ -32,6 +32,7 @@
     "eslint-plugin-react": "^3.5.1",
     "event-stream": "^3.3.1",
     "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
     "gulp-front-matter": "^1.2.3",
     "gulp-frontend-tasks": "micnigh/gulp-frontend-tasks",
     "gulp-marked": "^1.0.0",

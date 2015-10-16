@@ -215,6 +215,11 @@ require("./tasks/build/static").generateTask({
   ],
   staticPath: staticPath,
   distPath: distPath,
+  jsAssets: [
+    distPath + "/js/lib.js",
+    distPath + "/js/data.js",
+    distPath + "/js/app.js",
+  ],
   hostname: "http://blog.yet-another-isomorphic-blog.com",
 });
 
