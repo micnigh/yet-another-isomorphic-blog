@@ -67,6 +67,7 @@ var renderApplicationRequest = function (req, res, next) {
       } else if (renderProps) {
         try {
           res.status(200).send(indexPageTemplate({
+            isDev,
             content: renderToString(<RoutingContext {...renderProps} />),
           }));
         } catch (e) {
