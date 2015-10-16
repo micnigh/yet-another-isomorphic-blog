@@ -20,11 +20,10 @@ gulp watch # run dev server where assets are auto rebuilt and the browser is rel
 gulp build # build all assets
 gulp test # run tests
 NODE_ENV=production gulp build # build all assets in production mode
+NODE_ENV=production gulp build:static # build static production ready site
 
 ```
 
 ## TODO
 
 - Style it
-- Generate sitemap
-- Task to convert blog to static isomorphic website
