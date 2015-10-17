@@ -164,12 +164,13 @@ gft.generateTask("css:scss", {
   ],
   includes: [
     "client/css/src/",
+    "client/css/libs/",
     "node_modules/",
   ],
   dest: distPath + "/css/",
   watch: [
     "client/css/src/**/*.scss",
-    "!client/css/src/shared/sprites.*",
+    "!client/css/src/app/shared/sprites.*",
   ],
   dependsOn: [
     "build:spritesheet:app",
@@ -190,7 +191,7 @@ gft.generateTask("spritesheet", {
   src: "client/sprites/*.png",
   dest: distPath + "/css/",
   destFileName: "spritesheet_",
-  spriteCSSFile: "client/css/src/shared/sprites.scss",
+  spriteCSSFile: "client/css/src/app/shared/sprites.scss",
   buildCSSTask: "build:css:scss:app",
   watch: [
     "client/sprites/*.png",

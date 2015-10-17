@@ -1,8 +1,30 @@
-@import "shared/mixins";
-@import "shared/colors";
-@import "shared/variables";
-
+@import "reset";
 
 @import "highlight.js/styles/codepen-embed";
 @import "highlight.js/styles/monokai_sublime";
 @import "highlight.js/styles/railscasts";
+
+@import "app/shared/mixins";
+@import "app/shared/colors";
+@import "app/shared/variables";
+
+@import "app/fonts";
+@import "app/typography";
+@import "app/links";
+@import "app/layout";
+
+body {
+  color: $base-text-color;
+  font-size: $base-font-size;
+  font-family: $base-font-family;
+  font-weight: $base-font-weight;
+  line-height: 1.6;
+
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0em 1em;
+}
+
+.navigation { @import "app/component/Navigation"; };
+.post { @import "app/component/Post"; };
+.post-summary { @import "app/component/PostSummary"; };

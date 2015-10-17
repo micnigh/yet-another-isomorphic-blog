@@ -1,0 +1,11 @@
+& {
+  padding: 1em 0em;
+}
+
+.brand {
+  font-size: $base-font-size * 2;
+  color: $base-text-color;
+  &:hover {
+    color: $link-color;
+  }
+}

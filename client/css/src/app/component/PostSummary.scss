@@ -1,0 +1,28 @@
+& {
+  margin-bottom: 2em;
+  position: relative;
+}
+
+.title {
+  color: $base-text-color;
+  &:hover {
+    color: $link-color;
+  }
+}
+
+.read-more {
+  display: inline-block;
+  margin-top: 0.25em;
+}
+
+.tags {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+
+  @media screen and (max-width: $media-screen-break-small) {
+    position: inherit;
+    display: block;
+    margin-top: 1em;
+  }
+}

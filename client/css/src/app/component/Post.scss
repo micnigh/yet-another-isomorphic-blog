@@ -1,0 +1,43 @@
+& {
+
+}
+
+.content {
+  margin: 1.0em 0em;
+  padding: 1.0em 0em;
+  border-top: 1px dashed #aaa;
+}
+
+.post-navigation {
+  position: relative;
+  .next {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+
+    @media screen and (max-width: $media-screen-break-small) {
+      position: inherit;
+      display: block;
+    }
+  }
+}
+
+.title-container {
+  position: relative;
+}
+
+.title {
+  letter-spacing: 1px;
+  font-weight: 900;
+}
+
+.tags {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+
+  @media screen and (max-width: $media-screen-break-small) {
+    position: inherit;
+    display: block;
+  }
+}
