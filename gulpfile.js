@@ -224,6 +224,11 @@ require("./tasks/build/static").generateTask({
   hostname: "http://blog.yet-another-isomorphic-blog.com",
 });
 
+require("./tasks/deploy/github-pages").generateTask({
+  taskName: "deploy:github-pages",
+  staticPath: staticPath,
+});
+
 gulp.task("build", [
   "build:data",
   "build:js",

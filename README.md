@@ -21,6 +21,7 @@ gulp build # build all assets
 gulp test # run tests
 NODE_ENV=production gulp build # build all assets in production mode
 NODE_ENV=production gulp build:static # build static production ready site
+NODE_ENV=production gulp deploy:github-pages # deploy static production site to gh-pages
 
 ```
 
