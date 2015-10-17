@@ -1,3 +1,4 @@
+var _ = require("underscore");
 /* eslint-disable no-unused-vars */
 var React = require("react");
 /* eslint-enable no-unused-vars */
@@ -7,6 +8,7 @@ import { Route, IndexRoute } from "react-router";
 var LayoutPage = require("./page/LayoutPage");
 var Home = require("./component/Home");
 var Post = require("./component/Post");
+var Tag = require("./component/Tag");
 
 /* eslint-disable no-unused-vars */
 export default function (data) {
@@ -22,10 +24,19 @@ export default function (data) {
     );
   });
 
+  var tagRoutes = _.map(data.tags, (posts, tag) => {
+    return (
+      <Route path={`tag/${tag}`} key={tag} component={(routeProp) => {
+        return <Tag posts={posts}/>;
+      }}/>
+    );
+  });
+
   return (
     <Route path="/" component={LayoutPage}>
       <IndexRoute component={(routeProp) => <Home posts={data.posts.byDate}/>}/>
       { postRoutes }
+      { tagRoutes }
     </Route>
   );
 }

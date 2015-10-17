@@ -12,7 +12,7 @@ class Post extends React.Component {
     } = this.props;
     var prevLinkEl = prev === null ? <span className="prev">prev</span> : <Link to={`/posts/${prev.slug}`} className="prev">prev - {prev.title}</Link>;
     var nextLinkEl = next === null ? <span className="next">next</span> : <Link to={`/posts/${next.slug}`} className="next">{next.title} - next</Link>;
-    var tagEls = tags.map(t => <Link to={`/tags/${t}`} key={t} className="tag"> {t} </Link>);
+    var tagEls = tags.map(t => <Link to={`/tag/${t}`} key={t} className="tag"> {t} </Link>);
     return (
       <div className="post">
         <div className="title-container">

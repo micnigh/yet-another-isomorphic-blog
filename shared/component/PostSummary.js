@@ -11,7 +11,7 @@ class PostSummary extends React.Component {
         tags,
       }
     } = this.props;
-    var tagEls = tags.map(t => <Link to={`/tags/${t}`} key={t} className="tag"> {t} </Link>);
+    var tagEls = tags.map(t => <Link to={`/tag/${t}`} key={t} className="tag"> {t} </Link>);
     return (
       <div className="post-summary">
         <Link to={ `/posts/${slug}` }>

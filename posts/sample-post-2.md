@@ -6,6 +6,7 @@ tags:
   - second
   - es6
   - react
+  - javascript
 summary: |
   Summary of sample post 2 - tempus hendrerit. Fusce tempor lectus non eros gravida, sed rutrum arcu tempor. Praesent faucibus nisi at sapien fringilla, eget pellentesque diam mollis. Nullam efficitur posuere volutpat. Pellentesque efficitur, mi ut feugiat tincidunt, ante purus semper enim, in placerat purus tortor non ligula
 ---

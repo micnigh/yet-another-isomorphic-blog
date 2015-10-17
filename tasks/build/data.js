@@ -13,6 +13,7 @@ module.exports = function (done) {
       bySlug: {},
       byDate: [],
     },
+    tags: {},
   };
 
   gulp.src([
@@ -37,6 +38,14 @@ module.exports = function (done) {
 
       data.posts.bySlug[post.slug] = post;
       data.posts.byDate.push(post);
+
+      post.tags.forEach(t => {
+        if (typeof data.tags[t] === "undefined") {
+          data.tags[t] = [ post ];
+        } else {
+          data.tags[t].push(post);
+        }
+      });
 
       return cb(null, file);
     }))
