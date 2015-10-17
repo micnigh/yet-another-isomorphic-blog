@@ -26,4 +26,4 @@ NODE_ENV=production gulp build:static # build static production ready site
 
 ## TODO
 
-- Style it
+- Add tag support
