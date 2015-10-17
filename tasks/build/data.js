@@ -51,6 +51,9 @@ module.exports = function (done) {
     }))
     .on("end", function () {
       data.posts.byDate = data.posts.byDate.sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate));
+      _.each(data.tags, (posts, tag) => {
+        data.tags[tag] = posts.sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate));
+      });
       fs.writeFile("shared/data.json", JSON.stringify(data, null, 2), done);
     });
 };
