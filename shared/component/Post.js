@@ -1,5 +1,6 @@
 var React = require("react");
 var { Link } = require("react-router");
+var { baseUrl } = require("../baseUrl");
 
 class Post extends React.Component {
   render () {
@@ -10,9 +11,9 @@ class Post extends React.Component {
         tags: tags,
       }, prev, next
     } = this.props;
-    var prevLinkEl = prev === null ? <span className="prev">prev</span> : <Link to={`/posts/${prev.slug}`} className="prev">prev - {prev.title}</Link>;
-    var nextLinkEl = next === null ? <span className="next">next</span> : <Link to={`/posts/${next.slug}`} className="next">{next.title} - next</Link>;
-    var tagEls = tags.map(t => <Link to={`/tag/${t}`} key={t} className="tag"> {t} </Link>);
+    var prevLinkEl = prev === null ? <span className="prev">prev</span> : <Link to={`${baseUrl}posts/${prev.slug}`} className="prev">prev - {prev.title}</Link>;
+    var nextLinkEl = next === null ? <span className="next">next</span> : <Link to={`${baseUrl}posts/${next.slug}`} className="next">{next.title} - next</Link>;
+    var tagEls = tags.map(t => <Link to={`${baseUrl}tag/${t}`} key={t} className="tag"> {t} </Link>);
     return (
       <div className="post">
         <div className="title-container">

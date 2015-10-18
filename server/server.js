@@ -8,14 +8,22 @@ var path = require("path");
 var fs = require("fs");
 var indexPageTemplate = handlebars.compile(fs.readFileSync("server/public/index.html", "utf8"));
 
+var {
+  distPath,
+  baseUrl,
+} = require("../gulpfile");
+
+process.env.NODE_ENV = process.env.NODE_ENV || "development";
 var isDev = "development" === process.env.NODE_ENV;
 
 import { renderToString } from "react-dom/server";
 import { match, RoutingContext } from "react-router";
 
-var PORT = process.env.NODE_ENV === "production" ?
-  process.env.PORT || 80 :
-  process.env.PORT || 3000;
+import { relPathToBaseUrl } from "../shared/baseUrl";
+
+var PORT = isDev ?
+  process.env.PORT || 3000 :
+  process.env.PORT || 80;
 
 if (process.env.NODE_ENV === "production") {
   PORT = 80;
@@ -30,6 +38,14 @@ var app = express()
 var server = app.listen(PORT, "0.0.0.0", function () {
   var url = "http://" + require("os").hostname() + ":" + server.address().port + "/";
   console.log("Server listening at " + url);
+});
+
+app.get("/", function (req, res, next) {
+  if (req.url === baseUrl) {
+    next();
+  } else {
+    res.status(302).redirect(baseUrl);
+  }
 });
 
 app.get("/data.json", function (req, res) {
@@ -72,6 +88,7 @@ var renderApplicationRequest = function (req, res, next) {
           res.status(200).send(indexPageTemplate({
             isDev,
             content: renderToString(<RoutingContext {...renderProps} />),
+            relPathToBaseUrl: relPathToBaseUrl(req.url),
           }));
         } catch (e) {
           console.log(chalk.red(e.stack));
@@ -84,6 +101,7 @@ var renderApplicationRequest = function (req, res, next) {
   });
 };
 
-app.get("/", renderApplicationRequest);
-app.use(express.static(__dirname + "/public"));
-app.get("*", renderApplicationRequest);
+app.get(`${baseUrl}`, renderApplicationRequest);
+app.use(`${baseUrl}`, express.static(__dirname + "/public"));
+app.use(`${baseUrl}`, express.static(distPath));
+app.get(`${baseUrl}*`, renderApplicationRequest);

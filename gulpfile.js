@@ -9,15 +9,24 @@ require("babel/register");
 
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
+var isDev = "development" === process.env.NODE_ENV;
+
 var bsApp = browsersync.create();
 var bsTest = browsersync.create();
 
-var distPath = "server/public";
+var distPath = ".tmp/dev";
+if (!isDev) {
+  distPath = ".tmp/prod";
+}
 var staticPath = ".tmp/static";
 var testPath = ".tmp/test/";
 
-var baseUrl = "https://micnigh.github.io/yet-another-isomorphic-blog/";
+var baseUrl = "/";
+if (!isDev) {
+  baseUrl = "/yet-another-isomorphic-blog/";
+}
 process.env.BASE_URL = baseUrl;
+var domain = "micnigh.github.io";
 
 var karmaPort = 3001;
 var bsAppPort = 3002;
@@ -25,6 +34,8 @@ var bsTestPort = 3004;
 
 module.exports = {
   distPath: distPath,
+  baseUrl: baseUrl,
+  domain: domain,
   staticPath: staticPath,
   testPath: testPath,
   karmaPort: karmaPort,
@@ -146,10 +157,26 @@ gft.generateTask("js", {
   browsersync: bsTest,
 });
 
+require("./tasks/build/js/all").generateTask({
+  taskName: "build:js:all",
+  dependsOn: [
+    "build:js:lib",
+    "build:js:data",
+    "build:js:app",
+  ],
+  distPath: distPath,
+  jsAssets: [
+    distPath + "/js/lib.js",
+    distPath + "/js/data.js",
+    distPath + "/js/app.js",
+  ],
+});
+
 gulp.task("build:js", [
   "build:js:lib",
   "build:js:data",
   "build:js:app",
+  "build:js:all",
   "build:js:test",
 ]);
 
@@ -219,12 +246,8 @@ require("./tasks/build/static").generateTask({
   ],
   staticPath: staticPath,
   distPath: distPath,
-  jsAssets: [
-    distPath + "/js/lib.js",
-    distPath + "/js/data.js",
-    distPath + "/js/app.js",
-  ],
   baseUrl: baseUrl,
+  domain: domain,
 });
 
 require("./tasks/deploy/github-pages").generateTask({
@@ -245,6 +268,7 @@ gulp.task("serve", [
   nodemon({
     watch: [
       "server",
+      "shared/routes.js",
     ],
     ignore: [
       "server/public/js/*.js*",

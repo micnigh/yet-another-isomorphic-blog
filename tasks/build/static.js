@@ -1,5 +1,4 @@
 var gulp = require("gulp");
-var concat = require("gulp-concat");
 var chalk = require("chalk");
 var handlebars = require("handlebars");
 /* eslint-disable no-unused-vars */
@@ -12,6 +11,8 @@ var shelljs = require("shelljs");
 var path = require("path");
 var Sitemap = require("sitemap");
 
+import { relPathToBaseUrl } from "../../shared/baseUrl";
+
 var isDev = "development" === process.env.NODE_ENV;
 
 var generateTask = function({
@@ -19,25 +20,16 @@ var generateTask = function({
   dependsOn,
   staticPath,
   distPath,
-  jsAssets,
   baseUrl,
+  domain,
 }) {
   gulp.task(taskName, dependsOn.concat([
-    `${taskName}:concat-js-assets`,
     `${taskName}:copy-assets`,
     `${taskName}:html`,
     `${taskName}:sitemap`,
   ]));
 
-  gulp.task(`${taskName}:concat-js-assets`, dependsOn, function () {
-    return gulp.src(jsAssets)
-      .pipe(concat("all.js"))
-      .pipe(gulp.dest(`${staticPath}/js/`));
-  });
-
-  gulp.task(`${taskName}:copy-assets`, dependsOn.concat([
-    `${taskName}:concat-js-assets`,
-  ]), function () {
+  gulp.task(`${taskName}:copy-assets`, dependsOn, function () {
     return gulp.src([
       `${distPath}/**/*.js`,
       `${distPath}/**/*.css`,
@@ -55,27 +47,31 @@ var generateTask = function({
     var routePaths = convertRoutesToPaths(routes);
     var template = handlebars.compile(fs.readFileSync("server/public/index.html", "utf8"));
 
-    // TODO: turn this into promises so we can wait for all to complete,
-    // and call done then
-    routePaths.forEach(routePath => {
-      convertRoutePathToHtml({
-        routes,
-        routePath,
-        template
-      }, (error, { routePath, html }) => {
-        if (error) { console.log(chalk.red(error.stack)); return; }
-        var filePath = `${staticPath}${routePath}`;
-        if (/\/$/.test(filePath)) {
-          filePath = filePath + "index.html";
-        } else {
-          filePath = filePath + ".html";
-        }
-        shelljs.mkdir("-p", path.dirname(filePath));
-        fs.writeFileSync(filePath, html);
+    Promise.all(routePaths.map(routePath => {
+      return new Promise((resolve, reject) => {
+        convertRoutePathToHtml({
+          routes,
+          routePath,
+          template,
+          baseUrl,
+        }, (error, { routePath, html }) => {
+          if (error) { reject(error.stack); return; }
+          var filePath = `${staticPath}${routePath.replace(baseUrl, "/")}`;
+          if (/\/$/.test(filePath)) {
+            filePath = filePath + "index.html";
+          } else {
+            filePath = filePath + ".html";
+          }
+          shelljs.mkdir("-p", path.dirname(filePath));
+          fs.writeFileSync(filePath, html);
+          resolve();
+        });
       });
+    })).then(() => {
+      done();
+    }, error => {
+      if (error) { console.log(chalk.red(error.stack)); done(); return; }
     });
-
-    done();
   });
 
   gulp.task(`${taskName}:sitemap`, dependsOn, function (done) {
@@ -97,12 +93,12 @@ var generateTask = function({
       var priority = (route === "/" ? 1 : 1 / (depth + 1));
 
       urls.push({
-        url: `${baseUrl.slice(0, -1)}${route}`, changefreq: "weekly", priority: priority, lastmod: now
+        url: `https://${domain}${route}`, changefreq: "weekly", priority: priority, lastmod: now
       });
     });
 
     var sitemap = Sitemap.createSitemap({
-      baseUrl: `${baseUrl}`,
+      baseUrl: `https://${domain}${baseUrl}`,
       // 600 sec cache period
       cacheTime: 600000,
       urls: urls
@@ -115,7 +111,7 @@ var generateTask = function({
   });
 };
 
-var convertRoutePathToHtml = function ({ routes, routePath, template }, callback) {
+var convertRoutePathToHtml = function ({ routes, routePath, template, baseUrl }, callback) {
   match({ routes: routes, location: `/${routePath}` }, (e, redirectLocation, renderProps) => {
     if (e) { callback(e, {}); return; }
     if (renderProps) {
@@ -123,7 +119,7 @@ var convertRoutePathToHtml = function ({ routes, routePath, template }, callback
         var html = template({
           isDev,
           content: renderToString(<RoutingContext {...renderProps} />),
-          relPathToBaseUrl: "../".repeat(routePath.match(/\//g).length - 1).slice(0, -1),
+          relPathToBaseUrl: relPathToBaseUrl(routePath),
         });
         callback(null, {
           html,
