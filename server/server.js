@@ -59,7 +59,10 @@ var renderApplicationRequest = function (req, res, next) {
       clearModuleCacheForSharedModules();
     }
     var routes = require("../shared/routes");
-    match({ routes: routes(data), location: req.url }, (error, redirectLocation, renderProps) => {
+    match({ routes: routes({
+      data,
+      baseUrl: `/`,
+    }), location: req.url }, (error, redirectLocation, renderProps) => {
       if (error) {
         res.status(500).send(error.message);
       } else if (redirectLocation) {

@@ -8,11 +8,22 @@ var ReactDOM = require("react-dom");
 import { Router, } from "react-router";
 var routes = require("routes");
 var data = require("data.json");
-import createBrowserHistory from "history/lib/createBrowserHistory";
-var history = createBrowserHistory();
+import { createHistory, useBasename } from "history";
+
+var baseUrl = "";
+if (process.env.NODE_ENV !== "development") {
+  baseUrl = process.env.BASE_URL.slice(0, -1);
+}
+
+var history = useBasename(createHistory)({
+  basename: baseUrl,
+});
 
 ReactDOM.render((
   <Router history={history}>
-    { routes(data) }
+    { routes({
+      data,
+      baseUrl,
+    }) }
   </Router>
 ), document.getElementById("content"));

@@ -16,6 +16,9 @@ var distPath = "server/public";
 var staticPath = ".tmp/static";
 var testPath = ".tmp/test/";
 
+var baseUrl = "https://micnigh.github.io/yet-another-isomorphic-blog/";
+process.env.BASE_URL = baseUrl;
+
 var karmaPort = 3001;
 var bsAppPort = 3002;
 var bsTestPort = 3004;
@@ -221,7 +224,7 @@ require("./tasks/build/static").generateTask({
     distPath + "/js/data.js",
     distPath + "/js/app.js",
   ],
-  hostname: "http://blog.yet-another-isomorphic-blog.com",
+  baseUrl: baseUrl,
 });
 
 require("./tasks/deploy/github-pages").generateTask({

@@ -20,7 +20,7 @@ var generateTask = function({
   staticPath,
   distPath,
   jsAssets,
-  hostname,
+  baseUrl,
 }) {
   gulp.task(taskName, dependsOn.concat([
     `${taskName}:concat-js-assets`,
@@ -48,7 +48,10 @@ var generateTask = function({
 
   gulp.task(`${taskName}:html`, dependsOn, function (done) {
     var data = require("../../shared/data.json");
-    var routes = require("../../shared/routes")(data);
+    var routes = require("../../shared/routes")({
+      data,
+      baseUrl,
+    });
     var routePaths = convertRoutesToPaths(routes);
     var template = handlebars.compile(fs.readFileSync("server/public/index.html", "utf8"));
 
@@ -77,7 +80,10 @@ var generateTask = function({
 
   gulp.task(`${taskName}:sitemap`, dependsOn, function (done) {
     var data = require("../../shared/data.json");
-    var routes = require("../../shared/routes")(data);
+    var routes = require("../../shared/routes")({
+      data,
+      baseUrl,
+    });
     var routePaths = convertRoutesToPaths(routes);
 
     var urls = [];
@@ -91,12 +97,12 @@ var generateTask = function({
       var priority = (route === "/" ? 1 : 1 / (depth + 1));
 
       urls.push({
-        url: route, changefreq: "weekly", priority: priority, lastmod: now
+        url: `${baseUrl.slice(0, -1)}${route}`, changefreq: "weekly", priority: priority, lastmod: now
       });
     });
 
     var sitemap = Sitemap.createSitemap({
-      hostname: hostname,
+      baseUrl: `${baseUrl}`,
       // 600 sec cache period
       cacheTime: 600000,
       urls: urls
@@ -110,13 +116,14 @@ var generateTask = function({
 };
 
 var convertRoutePathToHtml = function ({ routes, routePath, template }, callback) {
-  match({ routes: routes, location: routePath }, (e, redirectLocation, renderProps) => {
+  match({ routes: routes, location: `/${routePath}` }, (e, redirectLocation, renderProps) => {
     if (e) { callback(e, {}); return; }
     if (renderProps) {
       try {
         var html = template({
           isDev,
           content: renderToString(<RoutingContext {...renderProps} />),
+          relPathToBaseUrl: "../".repeat(routePath.match(/\//g).length - 1).slice(0, -1),
         });
         callback(null, {
           html,

@@ -7,20 +7,20 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="apple-touch-icon" href="favicon.png">
+        <link rel="apple-touch-icon" href="{{relPathToBaseUrl}}/favicon.png">
         <link rel="icon"
               type="image/png"
-              href="/favicon.png">
-        <link rel="stylesheet" href="/css/app.css">
+              href="{{relPathToBaseUrl}}/favicon.png">
+        <link rel="stylesheet" href="{{relPathToBaseUrl}}/css/app.css">
     </head>
     <body>
         <div id="content">{{{content}}}</div>
         {{#if isDev}}
-          <script src="/js/lib.js"></script>
-          <script src="/js/data.js"></script>
-          <script src="/js/app.js"></script>
+          <script src="{{relPathToBaseUrl}}/js/lib.js"></script>
+          <script src="{{relPathToBaseUrl}}/js/data.js"></script>
+          <script src="{{relPathToBaseUrl}}/js/app.js"></script>
         {{else}}
-          <script src="/js/all.js" async></script>
+          <script src="{{relPathToBaseUrl}}/js/all.js" async></script>
         {{/if}}
     </body>
 </html>
