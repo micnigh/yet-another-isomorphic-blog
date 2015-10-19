@@ -45,9 +45,9 @@
 }
 
 .page-enter.page-enter-active {
-  animation: fade-in-slide 500ms ease-in-out;
+  animation: fade-in-slide 1000ms ease;
 }
 
 .page-leave.page-leave-active {
-  animation: fade-out 300ms;
+  animation: fade-out 1000ms ease;
 }
