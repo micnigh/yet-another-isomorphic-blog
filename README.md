@@ -2,7 +2,7 @@
 
 Demo of isomorphic react blog.
 
-See it in action [here](https://micnigh.github.io/yet-another-isomorphic-blog/)
+[View a demo](https://micnigh.github.io/yet-another-isomorphic-blog/)
 
 ## Quick start
 
