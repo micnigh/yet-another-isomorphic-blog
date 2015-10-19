@@ -47,6 +47,7 @@ var libs = [
   "es5-shim/es5-sham",
   "react",
   "react-dom",
+  "react-addons-css-transition-group",
   "react-router",
   "history/lib/createBrowserHistory"
 ];

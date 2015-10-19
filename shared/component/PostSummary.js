@@ -18,7 +18,9 @@ class PostSummary extends React.Component {
         <Link to={ `${baseUrl}posts/${slug}` }>
           <h4 className="title">{ title }</h4>
         </Link>
-        <p>{ summary }</p>
+        <div className="summary">
+          <p>{ summary }</p>
+        </div>
         <Link to={ `${baseUrl}posts/${slug}` }>
           <span className="read-more">read more</span>
         </Link>
