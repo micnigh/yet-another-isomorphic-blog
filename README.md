@@ -28,5 +28,4 @@ NODE_ENV=production gulp deploy:github-pages # deploy static production site to 
 ```
 
 ## TODO
-- Page transition animations?
 - Add search?
