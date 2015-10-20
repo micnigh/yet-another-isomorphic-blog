@@ -22,7 +22,7 @@ export default function ({
     var next = data.posts.byDate[postIndex - 1] || null;
     return (
       <Route path={`posts/${post.slug}`} key={post.slug} component={(routeProp) => {
-        return <Post post={post} prev={prev} next={next}/>;
+        return <Post post={post} prev={prev} next={next} {...routeProp}/>;
       }}/>
     );
   });
@@ -30,14 +30,14 @@ export default function ({
   var tagRoutes = _.map(data.tags, (posts, tag) => {
     return (
       <Route path={`tag/${tag}`} key={tag} component={(routeProp) => {
-        return <Tag posts={posts}/>;
+        return <Tag posts={posts} {...routeProp}/>;
       }}/>
     );
   });
 
   return (
     <Route path={`${baseUrl}`} component={LayoutPage}>
-      <IndexRoute component={(routeProp) => <Home posts={data.posts.byDate}/>}/>
+      <IndexRoute component={(routeProp) => <Home posts={data.posts.byDate} {...routeProp}/>}/>
       { postRoutes }
       { tagRoutes }
     </Route>
