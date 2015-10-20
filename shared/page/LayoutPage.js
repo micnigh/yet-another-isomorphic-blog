@@ -9,10 +9,8 @@ class PageLayout extends React.Component {
     return (
       <div>
         <Navigation/>
-        <ReactCSSTransitionGroup transitionName="page" transitionEnterTimeout={1000} transitionLeaveTimeout={1000} component="div" className="animation-outer-wrapper">
-          <div key={ pathname } className="animation-inner-wrapper">
-            { React.cloneElement(this.props.children, { key: pathname }) }
-          </div>
+        <ReactCSSTransitionGroup transitionName="page" transitionEnterTimeout={1000} transitionLeaveTimeout={1000} component="div" className="animation-wrapper">
+          { React.cloneElement(this.props.children, { key: pathname }) }
         </ReactCSSTransitionGroup>
       </div>
     );
