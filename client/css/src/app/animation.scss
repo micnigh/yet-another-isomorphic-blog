@@ -1,6 +1,8 @@
 & {
   position: relative;
   width: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 .animation-inner-wrapper {
@@ -8,35 +10,37 @@
 }
 
 @keyframes fade-in-slide {
-  from {
+  0% {
     opacity: 0;
-    transform: translateX(100%);
+    transform: translate3d(100%, 0, 0);
   }
 
-  to {
+  100% {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
 @keyframes fade-out {
-  from {
+  0% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
   }
 
-  to {
+  100% {
     opacity: 0;
-    transform: translateY(100%);
+    transform: translate3d(0, 100%, 0);
   }
 }
 
 .page-enter {
+  transform: translate3d(100%, 0, 0);
   opacity: 0.0;
   z-index: 2;
 }
 
 .page-leave {
+  transform: translate3d(0, 0, 0);
   position: absolute;
   top: 0px;
   width: 100%;
