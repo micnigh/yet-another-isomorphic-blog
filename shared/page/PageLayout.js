@@ -4,7 +4,7 @@ var ReactCSSTransitionGroup = require("react-addons-css-transition-group");
 var Navigation = require("../component/Navigation");
 
 var defaultState = {
-  transitionName: "in-from-right",
+  transitionName: "in-from-top",
   transitionDuration: 1000,
 };
 
