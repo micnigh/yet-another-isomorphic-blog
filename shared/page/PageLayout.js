@@ -32,10 +32,10 @@ class PageLayout extends React.Component {
 
   setTransitionName(transitionName) {
     this.setState({transitionName});
-    // revert animation to default when done
+    // revert animation to default for next request
     setTimeout(() => {
       this.setState({transitionName: defaultState.transitionName});
-    }, this.state.transitionDuration);
+    }, 0);
   }
 }
 
