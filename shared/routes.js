@@ -5,7 +5,7 @@ var React = require("react");
 
 import { Route, IndexRoute } from "react-router";
 
-var LayoutPage = require("./page/LayoutPage");
+var PageLayout = require("./page/PageLayout");
 var Home = require("./component/Home");
 var Post = require("./component/Post");
 var Tag = require("./component/Tag");
@@ -36,7 +36,7 @@ export default function ({
   });
 
   return (
-    <Route path={`${baseUrl}`} component={LayoutPage}>
+    <Route path={`${baseUrl}`} component={PageLayout}>
       <IndexRoute component={(routeProp) => <Home posts={data.posts.byDate} {...routeProp}/>}/>
       { postRoutes }
       { tagRoutes }
