@@ -7,6 +7,6 @@ module.exports = function () {
     "posts/*.md"
   ],
   _.debounce(function () {
-    gulp.start("watch:data");
+    gulp.start("build:data");
   }, 100));
 };
