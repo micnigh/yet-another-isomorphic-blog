@@ -237,8 +237,14 @@ gulp.task("watch:spritesheet", [
   "watch:spritesheet:app",
 ]);
 
-gulp.task("build:data", [], require("./tasks/build/data"));
-gulp.task("watch:data", ["build:data"], require("./tasks/watch/data"));
+require("./tasks/build/data").generateTask({
+  taskName: "build:data",
+});
+
+require("./tasks/watch/data").generateTask({
+  taskName: "watch:data",
+  dependsOn: [ "build:data" ],
+});
 
 require("./tasks/build/static").generateTask({
   taskName: "build:static",
