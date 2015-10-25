@@ -40,27 +40,35 @@ var generateTask = function({
           content: file.contents.toString(),
         });
 
-        data.posts.bySlug[post.slug] = post;
-        data.posts.byDate.push(post);
-
-        post.tags.forEach(t => {
-          if (typeof data.tags[t] === "undefined") {
-            data.tags[t] = [ post ];
-          } else {
-            data.tags[t].push(post);
-          }
-        });
+        addPost(data, post);
 
         return cb(null, file);
       }))
       .on("end", function () {
-        data.posts.byDate = data.posts.byDate.sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate));
+        data.posts.byDate = sortPostsByDate(data.posts.byDate);
         _.each(data.tags, (posts, tag) => {
-          data.tags[tag] = posts.sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate));
+          data.tags[tag] = sortPostsByDate(posts);
         });
         fs.writeFile("shared/data.json", JSON.stringify(data, null, 2), done);
       });
   });
+};
+
+var addPost = function (data, post) {
+  data.posts.bySlug[post.slug] = post;
+  data.posts.byDate.push(post);
+
+  post.tags.forEach(t => {
+    if (typeof data.tags[t] === "undefined") {
+      data.tags[t] = [ post ];
+    } else {
+      data.tags[t].push(post);
+    }
+  });
+};
+
+var sortPostsByDate = function (posts) {
+  return posts.sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate));
 };
 
 module.exports = {
