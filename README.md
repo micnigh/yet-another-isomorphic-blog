@@ -28,4 +28,7 @@ NODE_ENV=production gulp deploy:github-pages # deploy static production site to 
 ```
 
 ## TODO
-- Add search?
+
+- Pull data in gradually rather than through JS
+- Search
+- Comment support (disqus?)
