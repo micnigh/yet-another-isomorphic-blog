@@ -28,6 +28,54 @@ NODE_ENV=production gulp deploy:github-pages # deploy static production site to 
 
 ```
 
+## API
+
+`/api/posts/`
+
+```json
+{
+  "posts": [
+    { "slug": "", "publishDate": "10/14/2015" },
+    { "slug": "", "publishDate": "10/11/2015" },
+    ...
+  ],
+}
+```
+
+`/api/posts/:slug`
+
+```json
+{
+  "post": {
+    "slug": "",
+    "publishDate": "",
+    "summary": "",
+    "content": "",
+    "tags": [],
+    "prevPost": {
+      "slug": "",
+      "title": "",
+    },
+    "nextPost": {
+      "slug": "",
+      "title": "",
+    },
+    ...
+  }
+}
+```
+
+`/api/tags/`
+
+```json
+{
+  "tags": [
+    { "tag": "", "posts": [ { "slug": "" }  ]},
+    ...
+  ]
+}
+```
+
 ## TODO
 
 - Pull data in gradually rather than through JS
