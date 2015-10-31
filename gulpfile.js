@@ -5,7 +5,7 @@ var karma = require("karma");
 
 var gft = require("gulp-frontend-tasks")(gulp);
 
-require("babel/register");
+require("babel-core/register");
 
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
@@ -111,6 +111,11 @@ gft.generateTask("js", {
   ],
   browserify: {
     externals: libs.concat(dataBundle),
+    transforms: {
+      babelify: {
+        presets: ["babel-preset-es2015", "babel-preset-react"],
+      }
+    }
   },
   watch: [
     "client/js/src/*.js",
