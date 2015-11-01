@@ -124,6 +124,7 @@ gft.generateTask("js", {
     transforms: {
       babelify: {
         presets: ["babel-preset-es2015", "babel-preset-react"],
+        plugins: ["transform-regenerator", "syntax-async-functions"],
       }
     }
   },
@@ -174,7 +175,8 @@ gft.generateTask("js", {
     transforms: {
       babelify: {
         presets: ["babel-preset-es2015", "babel-preset-react"],
-      },
+        plugins: ["transform-regenerator", "syntax-async-functions"],
+      }
     },
   },
   watch: [
