@@ -72,6 +72,11 @@ gft.generateTask("js", {
   destFileName: "lib.js",
   browserify: {
     requires: libs,
+    transforms: {
+      babelify: {
+        presets: ["babel-preset-es2015"],
+      },
+    },
   },
   watch: [
     "client/js/libs/entry.js",
@@ -92,6 +97,11 @@ gft.generateTask("js", {
   destFileName: "data.js",
   browserify: {
     requires: dataBundle,
+    transforms: {
+      babelify: {
+        presets: ["babel-preset-es2015"],
+      },
+    },
   },
   watch: [
     "shared/data.json",
@@ -136,6 +146,11 @@ gft.generateTask("js", {
   destFileName: "testLib.js",
   browserify: {
     requires: testLibs,
+    transforms: {
+      babelify: {
+        presets: ["babel-preset-es2015"],
+      },
+    },
   },
   watch: [
     "client/js/test/libs/entry.js",
@@ -156,6 +171,11 @@ gft.generateTask("js", {
   ],
   browserify: {
     externals: libs.concat(testLibs),
+    transforms: {
+      babelify: {
+        presets: ["babel-preset-es2015", "babel-preset-react"],
+      },
+    },
   },
   watch: [
     "client/js/test/src/**/*.js",

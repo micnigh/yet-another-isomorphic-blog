@@ -1,17 +1,17 @@
-require("app/config");
+import "app/config";
 
 /* eslint-disable no-unused-vars */
-var React = require("react");
-var ReactDOM = require("react-dom");
+import React from "react";
+import ReactDOM from "react-dom";
 /* eslint-enable no-unused-vars */
 
 import { Router, Route } from "react-router";
-var routes = require("routes");
-var data = require("data.json");
+import routes from "routes";
+import data from "data.json";
 import { createHistory } from "history";
 var history = createHistory();
 
-var NotFound = require("component/NotFound");
+import NotFound from "component/NotFound";
 
 ReactDOM.render((
   <Router history={history}>

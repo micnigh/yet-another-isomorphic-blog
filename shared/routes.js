@@ -1,16 +1,16 @@
-var _ = require("underscore");
+import _ from "underscore";
 /* eslint-disable no-unused-vars */
-var React = require("react");
+import React from "react";
 /* eslint-enable no-unused-vars */
 
 import { Route, IndexRoute } from "react-router";
 
-var PageLayout = require("./page/PageLayout");
-var Home = require("./component/Home");
-var Post = require("./component/Post");
-var Tag = require("./component/Tag");
+import PageLayout from "./page/PageLayout";
+import Home from "./component/Home";
+import Post from "./component/Post";
+import Tag from "./component/Tag";
 
-var { baseUrl } = require("./baseUrl");
+import { baseUrl } from "./baseUrl";
 
 /* eslint-disable no-unused-vars */
 export default function ({

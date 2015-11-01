@@ -1,4 +1,4 @@
-var chai = require("chai");
+import chai from "chai";
 chai.should();
 window.jasmine.expect = expect;
 window.expect = chai.expect;

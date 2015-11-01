@@ -1,5 +1,5 @@
-var React = require("react");
-var PostSummary = require("./PostSummary");
+import React from "react";
+import PostSummary from "./PostSummary";
 
 class Home extends React.Component {
   constructor (props) {

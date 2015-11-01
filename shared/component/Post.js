@@ -1,6 +1,6 @@
-var React = require("react");
-var { Link } = require("react-router");
-var { baseUrl } = require("../baseUrl");
+import React from "react";
+import { Link } from "react-router";
+import { baseUrl } from "../baseUrl";
 
 class Post extends React.Component {
   render () {

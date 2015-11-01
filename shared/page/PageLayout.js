@@ -1,7 +1,7 @@
-var React = require("react");
-var ReactCSSTransitionGroup = require("react-addons-css-transition-group");
+import React from "react";
+import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
-var Navigation = require("../component/Navigation");
+import Navigation from "../component/Navigation";
 
 var defaultState = {
   transitionName: "in-from-top",

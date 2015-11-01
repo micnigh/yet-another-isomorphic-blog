@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-var chai = require("chai");
+import chai from "chai";
 chai.should();
 jasmine.expect = expect;
 var expect = chai.expect;
