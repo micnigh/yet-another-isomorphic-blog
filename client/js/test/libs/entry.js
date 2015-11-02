@@ -1,8 +1,8 @@
-import chai from "chai";
-chai.should();
-window.jasmine.expect = expect;
-window.expect = chai.expect;
-window.assert = chai.assert;
+/* eslint-disable no-unused-vars */
+import "regenerator/runtime";
+import Promise from "bluebird";
+window.Promise = Promise;
+/* eslint-enable no-unused-vars */
 
 if (/PhantomJS/.test(navigator.userAgent)) {
   // no console output if in phantom - too noisy

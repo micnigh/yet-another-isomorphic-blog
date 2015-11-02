@@ -5,7 +5,9 @@ var karma = require("karma");
 
 var gft = require("gulp-frontend-tasks")(gulp);
 
-require("babel-core/register");
+require("babel-core/register")({
+  optional: ["es7.asyncFunctions"],
+});
 
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
@@ -49,7 +51,9 @@ var libs = [
   "react-dom",
   "react-addons-css-transition-group",
   "react-router",
-  "history/lib/createBrowserHistory"
+  "history/lib/createBrowserHistory",
+  "bluebird",
+  "regenerator/runtime",
 ];
 
 var dataBundle = [
@@ -57,7 +61,7 @@ var dataBundle = [
 ];
 
 var testLibs = [
-  "chai",
+
 ];
 
 gft.generateTask("js", {
