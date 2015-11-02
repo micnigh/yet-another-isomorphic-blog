@@ -7,6 +7,7 @@ var React = require("react");
 var path = require("path");
 var fs = require("fs");
 var indexPageTemplate = handlebars.compile(fs.readFileSync("server/public/index.html", "utf8"));
+var _ = require("underscore");
 
 var {
   distPath,
@@ -20,6 +21,8 @@ import { renderToString } from "react-dom/server";
 import { match, RoutingContext } from "react-router";
 
 import { relPathToBaseUrl } from "../shared/baseUrl";
+
+import apiRoutes from "./api/";
 
 var PORT = isDev ?
   process.env.PORT || 3000 :
@@ -104,4 +107,12 @@ var renderApplicationRequest = function (req, res, next) {
 app.get(`${baseUrl}`, renderApplicationRequest);
 app.use(`${baseUrl}`, express.static(__dirname + "/public"));
 app.use(`${baseUrl}`, express.static(distPath));
+
+apiRoutes.forEach(route => {
+  _.each(route.methods, (methodFunction, methodType) => {
+    app[methodType](`${baseUrl}${route.path}`, [], methodFunction);
+    app[methodType](`${baseUrl}${route.path}:queryParams`, [], methodFunction);
+  });
+});
+
 app.get(`${baseUrl}*`, renderApplicationRequest);
