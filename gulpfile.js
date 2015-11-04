@@ -54,6 +54,9 @@ var libs = [
   "history/lib/createBrowserHistory",
   "bluebird",
   "regenerator/runtime",
+  "superagent",
+  "superagent-jsonapify",
+  "query-string",
 ];
 
 var dataBundle = [

@@ -55,10 +55,13 @@
     "karma-source-map-support": "^1.1.0",
     "karma-spec-reporter": "0.0.22",
     "phantomjs": "^1.9.18",
+    "query-string": "^3.0.0",
     "regenerator": "^0.8.41",
     "regexp.escape": "^1.0.2",
     "shelljs": "^0.5.3",
     "sitemap": "^1.4.0",
+    "superagent": "^1.4.0",
+    "superagent-jsonapify": "^1.4.0",
     "yargs": "^3.29.0"
   }
 }

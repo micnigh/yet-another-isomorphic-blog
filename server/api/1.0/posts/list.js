@@ -1,5 +1,8 @@
 import chalk from "chalk";
 import data from "../../../../shared/data.json";
+import queryString from "query-string";
+
+var isDev = "development" === process.env.NODE_ENV;
 
 export var getPostsOnPage = function ({
   elements,
@@ -27,6 +30,20 @@ export var getPosts = function ({
   } else {
     posts = data.posts.byDate;
   }
+
+  // if (isDev) {
+  //   var samplePosts = [];
+  //   for (var i of [1, ...100]) {
+  //     samplePosts.push({
+  //       title: `${i}`,
+  //       slug: `${i}`,
+  //       summary: `${i} summary`,
+  //       tags: [],
+  //     });
+  //   }
+  //   posts = posts.concat(samplePosts);
+  // }
+
   var postsOnPage = getPostsOnPage({
     elements: posts,
     page: {
@@ -40,7 +57,7 @@ export var getPosts = function ({
   }
 
   return Promise.resolve({
-    data: posts,
+    data: postsOnPage,
     meta: {
       "total-pages": Math.ceil(posts.length / pageSize),
     }
@@ -48,24 +65,22 @@ export var getPosts = function ({
 };
 
 export var extractQueryParams = function (queryParams) {
+  var params = queryString.parse(queryParams);
   return {
     page: {
-      number: undefined,
-      size: undefined,
+      number: params["page[number]"],
+      size: params["page[size]"],
     },
     filter: {
-      tag: undefined,
+      tag: params["filter[tag]"],
     },
-    sort: undefined,
+    sort: params["sort"].split(","),
   };
 };
 
 export var methods = {
   get: async function (req, res) {
-    var queryParams = undefined;
-    if (typeof req.params.queryParams !== "undefined") {
-      var { params: queryParams } = req;
-    }
+    var { params: { queryParams }} = req;
     try {
       var posts = await getPosts(extractQueryParams(queryParams));
       res.status(200).json(posts);
