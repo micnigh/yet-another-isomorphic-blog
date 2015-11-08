@@ -17,6 +17,18 @@ describe("server", function () {
               done();
             }
           });
+
+          it("/api/1.0/posts/list/filter[tag]=javascript", async function (done) {
+            try {
+              var queryParams = postsList.extractQueryParams("filter[tag]=javascript");
+              var result = await postsList.getPosts(queryParams);
+              expect(result.data.length).toEqual(2);
+              done();
+            } catch (e) {
+              console.log(chalk.red(e.stack || e));
+              done();
+            }
+          });
         });
       });
     });
