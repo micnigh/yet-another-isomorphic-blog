@@ -77,7 +77,7 @@ var renderApplicationRequest = function (req, res, next) {
     if (isDev) {
       clearModuleCacheForSharedModules();
     }
-    var routes = require("../shared/routes");
+    var routes = require("../shared/routes").default;
     match({ routes: routes({
       data,
       baseUrl: `/`,

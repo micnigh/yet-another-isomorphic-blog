@@ -66,7 +66,15 @@ export var getPosts = function ({
 
 export var extractQueryParams = function (queryParams) {
   var params = queryString.parse(queryParams);
-  return {
+  var defaults = {
+    page: {
+      number: 1,
+      size: 10,
+    },
+    filter: {},
+    sort: ["date"],
+  };
+  return Object.assign(defaults, {
     page: {
       number: params["page[number]"],
       size: params["page[size]"],
@@ -74,8 +82,8 @@ export var extractQueryParams = function (queryParams) {
     filter: {
       tag: params["filter[tag]"],
     },
-    sort: params["sort"].split(","),
-  };
+    sort: typeof params["sort"] !== "undefined" ? params["sort"].split(",") : undefined,
+  });
 };
 
 export var methods = {

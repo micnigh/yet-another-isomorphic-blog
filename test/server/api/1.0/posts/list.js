@@ -6,7 +6,8 @@ describe("server", function () {
       describe("posts", function () {
         describe("list", function () {
           it("/api/1.0/posts/list/", async function (done) {
-            var result = await postsList.getPosts(postsList.extractQueryParams());
+            var queryParams = postsList.extractQueryParams();
+            var result = await postsList.getPosts(queryParams);
             expect(result.data.length).toEqual(4);
             done();
           });
