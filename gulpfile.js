@@ -83,7 +83,9 @@ gft.generateTask("js", {
     requires: libs,
     transforms: {
       babelify: {
-        presets: ["babel-preset-es2015"],
+        presets: [
+          require("babel-preset-es2015")
+        ],
       },
     },
   },
@@ -108,7 +110,9 @@ gft.generateTask("js", {
     requires: dataBundle,
     transforms: {
       babelify: {
-        presets: ["babel-preset-es2015"],
+        presets: [
+          require("babel-preset-es2015"),
+        ],
       },
     },
   },
@@ -132,8 +136,14 @@ gft.generateTask("js", {
     externals: libs.concat(dataBundle),
     transforms: {
       babelify: {
-        presets: ["babel-preset-es2015", "babel-preset-react"],
-        plugins: ["transform-regenerator", "syntax-async-functions"],
+        presets: [
+          require("babel-preset-es2015"),
+          require("babel-preset-react"),
+        ],
+        plugins: [
+          require("babel-plugin-transform-regenerator"),
+          require("babel-plugin-syntax-async-functions"),
+        ],
       }
     }
   },
@@ -158,7 +168,9 @@ gft.generateTask("js", {
     requires: testLibs,
     transforms: {
       babelify: {
-        presets: ["babel-preset-es2015"],
+        presets: [
+          require("babel-preset-es2015"),
+        ],
       },
     },
   },
@@ -183,8 +195,14 @@ gft.generateTask("js", {
     externals: libs.concat(testLibs),
     transforms: {
       babelify: {
-        presets: ["babel-preset-es2015", "babel-preset-react"],
-        plugins: ["transform-regenerator", "syntax-async-functions"],
+        presets: [
+          require("babel-preset-es2015"),
+          require("babel-preset-react"),
+        ],
+        plugins: [
+          require("babel-plugin-transform-regenerator"),
+          require("babel-plugin-syntax-async-functions"),
+        ],
       }
     },
   },
