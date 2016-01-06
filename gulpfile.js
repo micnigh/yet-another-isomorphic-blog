@@ -7,8 +7,14 @@ var gft = require("gulp-frontend-tasks")(gulp);
 
 require("regenerator/runtime");
 require("babel-core/register")({
-  presets: ["babel-preset-es2015", "babel-preset-react"],
-  plugins: ["syntax-async-functions", "transform-regenerator"],
+  presets: [
+    "babel-preset-es2015",
+    "babel-preset-react",
+  ],
+  plugins: [
+    "syntax-async-functions",
+    "transform-regenerator",
+  ],
 });
 
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
