@@ -1,6 +1,6 @@
-var React = require("react");
+import React from "react";
 import { Link } from "react-router";
-var { baseUrl } = require("../baseUrl");
+import { baseUrl } from "../baseUrl";
 
 class NotFound extends React.Component {
   render () {

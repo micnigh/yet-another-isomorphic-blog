@@ -43,5 +43,6 @@
     "plugins": [
       "react",
       "babel",
-    ]
+    ],
+    "parser": "babel-eslint"
 }

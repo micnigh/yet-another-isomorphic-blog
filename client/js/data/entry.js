@@ -1,1 +1,1 @@
-require("data.json");
+import "data.json";

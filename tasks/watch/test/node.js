@@ -9,6 +9,8 @@ var generateTask = function({
   gulp.task(taskName, dependsOn, function () {
     return gWatch([
       "test/**/*.js",
+      "server/**/*.js",
+      "shared/**/*.js",
     ],
     _.debounce(function () {
       gulp.start("test:node");

@@ -11,7 +11,7 @@ var relPathToBaseUrl = function (path) {
   return result;
 };
 
-module.exports = {
+export {
   baseUrl,
   relPathToBaseUrl,
 };
